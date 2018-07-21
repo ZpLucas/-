@@ -2,12 +2,9 @@
   <div class="wrap">
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="./images/01.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="./images/02.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="./images/03.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="./images/04.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="./images/05.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="./images/06.jpg" alt=""></div>
+        <div class="swiper-slide" v-for="(imgList,index) in imgLists" :key="index">
+          <img :src="imgList.picUrl" alt="">
+        </div>
       </div>
       <!--如果需要分页器-->
       <div class="swiper-pagination"></div>
@@ -30,20 +27,26 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   import Swiper from 'swiper'
   import 'swiper/dist/css/swiper.min.css'
   import 'swiper/dist/js/swiper.min'
   export default {
     mounted(){
-      this.$nextTick(()=>{
-        new Swiper ('.swiper-container', {
-          loop: true,
-          // 如果需要分页器
-          pagination: {
-            el: '.swiper-pagination',
-          },
+      this.$store.dispatch('getHeadImageList',()=>{
+        this.$nextTick(()=>{
+          new Swiper ('.swiper-container', {
+            loop: true,
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+            },
+          })
         })
       })
+    },
+    computed:{
+      ...mapState(['imgLists'])
     }
 
   }

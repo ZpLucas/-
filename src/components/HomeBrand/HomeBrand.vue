@@ -8,21 +8,12 @@
      </div>
      <div class="foot">
        <ul class="list">
-         <li class="item">
-           <h4 class="title">CK制造商</h4>
-           <div class="money">25元起</div>
-         </li>
-         <li class="item">
-           <h4 class="title">CK制造商</h4>
-           <div class="money">25元起</div>
-         </li>
-         <li class="item">
-           <h4 class="title">CK制造商</h4>
-           <div class="money">25元起</div>
-         </li>
-         <li class="item">
-           <h4 class="title">CK制造商</h4>
-           <div class="money">25元起</div>
+         <li class="item" v-for="(goods,index) in goodsList.slice(0,4)" :key="index">
+           <div class="flutter">
+             <h4 class="title">{{goods.name}}</h4>
+             <div class="money">{{goods.floorPrice}}元起</div>
+           </div>
+           <img :src="goods.picUrl" alt="">
          </li>
        </ul>
      </div>
@@ -30,7 +21,15 @@
 </template>
 
 <script>
-  export default {}
+  import {mapState} from 'vuex'
+  export default {
+    mounted(){
+      this.$store.dispatch('getHeadGoodsList')
+    },
+    computed:{
+      ...mapState(['goodsList'])
+    }
+  }
 </script>
 
 <style lang="less" rel="stylesheet/less">
@@ -65,15 +64,22 @@
         margin:0 14/@rem;
         height:476/@rem;
         .item{
+          position: relative;
           display: inline-block;
           float: left;
-          //margin-right: 8/@rem;
           margin-bottom: 8/@rem;
           width: 355/@rem;
           height: 236/@rem;
           background-color: #f4f4f4;
-          background-image: url("./images/brand/01.png");
-          background-size: 100% 100%;
+          .flutter{
+            position: absolute;
+            top:14/@rem ;
+            left: 14/@rem;
+          }
+          img{
+            width: 100%;
+            height: 100%;
+          }
           &:nth-child(1){
             margin-right: 8/@rem;
           }

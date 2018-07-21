@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 
 
-
+import './mock/mockServer'  // 加载mockServer数据
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

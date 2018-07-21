@@ -1,8 +1,8 @@
 <template>
-    <div class="new">
+    <div class="new1">
       <div class="header">
         <a href="javascript:;">
-          <span class="new_first">新品首发</span>
+          <span class="new_first">人气推荐 好物精选</span>
           <div class="see_all">
             <span>查看全部</span>
             <i class="icon"></i>
@@ -10,17 +10,17 @@
         </a>
       </div>
 
-      <div class="carousel">
+      <div class="goods">
         <ul class="list">
-          <li class="item" v-for="(images,index) in FirstImages" :key="index">
+          <li class="item" v-for="(item,index) in PopularItemList" :key="index">
             <div class="img_chat">
-              <img :src="images.listPicUrl" alt="">
+              <img :src="item.listPicUrl" alt="">
             </div>
-            <span class="big_letter">{{images.name}}</span>
-            <span class="little_letter">{{images.simpleDesc}}</span>
+            <span class="big_letter">{{item.name}}</span>
+            <span class="little_letter">{{item.simpleDesc}}</span>
             <div class="money">
               <span>￥</span>
-              <span>{{images.retailPrice}}</span>
+              <span>{{item.retailPrice}}</span>
             </div>
           </li>
           <li class="last">
@@ -36,12 +36,12 @@
   import BScroll from 'better-scroll'
   export default {
     computed:{
-      ...mapState(['FirstImages'])
+      ...mapState(['PopularItemList'])
     },
     mounted(){
-      this.$store.dispatch('getNewFirstImg',()=>{
+      this.$store.dispatch('getPopularItemList',()=>{
         this.$nextTick(() =>{
-          new BScroll('.carousel',{
+          new BScroll('.goods',{
             eventPassthrough: 'vertical',
             scrollX: true,
             scrollY:false,
@@ -55,14 +55,14 @@
 
 <style lang="less" rel="stylesheet/less">
   @import "../../common/less/mixins";
-  .new{
+  .new1{
     margin-top: 20/@rem;
     width: 100%;
     background-color: #fff;
     .header{
       width: 100%;
       height:260/@rem ;
-      background-image: url("./img/bg.png");
+      background-image: url("./images/bg1.png");
       background-size: 100% 100%;
       display: flex;
       align-items: center;
@@ -82,23 +82,22 @@
           height: 56/@rem;
           margin-top: 20/@rem;
           text-align: center;
-          background-color: #D8E5F1;
+          background-color: #F4E9CB;
           font-size: .37333rem;
           line-height: .74667rem;
           .icon{
             display: inline-block;
             width: 10/@rem;
             height: 22/@rem;
-            background-image: url("./img/right.png");
+            background-image: url("./images/right.png");
             background-size: 100% 100%;
           }
         }
       }
     }
-    .carousel{
-      height: 480/@rem;
-      box-sizing: border-box;
+    .goods{
       padding-top: 20/@rem;
+      height: 480/@rem;
       background-color: #fff;
       overflow: hidden;
       display: flex;

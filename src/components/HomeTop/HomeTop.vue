@@ -14,29 +14,8 @@
             <div class="tab active">
               <span class="txt">推荐</span>
             </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
-            </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
-            </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
-            </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
-            </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
-            </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
-            </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
-            </div>
-            <div class="tab">
-              <span class="txt">推荐</span>
+            <div class="tab" v-for="(headDate,index) in headDates" :key="index">
+              <span class="txt">{{headDate.name}}</span>
             </div>
           </div>
         </div>
@@ -46,8 +25,14 @@
 
 <script>
   import BScroll from 'better-scroll'
+  import {mapState} from  'vuex'
   export default {
+    computed:{
+      ...mapState(['headDates'])
+    },
     mounted(){
+      this.$store.dispatch('getHeadDateList')
+
       this.$nextTick(() =>{
         new BScroll('.scroll-container',{
           scrollX: true,
